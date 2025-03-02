@@ -1,1 +1,7 @@
-// TODO: Add dark mode support
+import { createTheme } from '@mui/material';
+
+export const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
