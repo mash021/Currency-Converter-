@@ -138,7 +138,7 @@ MIT
 
 ## Author
 
-Mohammad Ali Sharifi
+ Ali Sharifi
 
 ## Acknowledgments
 
