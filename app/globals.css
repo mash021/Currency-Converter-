@@ -451,16 +451,16 @@ body {
 
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-black/30;
+  @apply bg-black/40 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-300;
+  @apply bg-white/30 rounded-full hover:bg-white/40 transition-colors duration-300;
 }
 
 /* Custom Animations */
