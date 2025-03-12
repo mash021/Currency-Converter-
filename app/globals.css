@@ -9,7 +9,8 @@
   }
 
   .glass-morphism {
-    @apply bg-black/60 backdrop-blur-md border border-white/10 rounded-lg shadow-lg shadow-black/40;
+    @apply bg-black/60 backdrop-blur-xl border border-white/20 rounded-lg shadow-lg shadow-black/40
+    hover:backdrop-blur-2xl hover:border-white/30 transition-all duration-300;
   }
 
   .card {
