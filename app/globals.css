@@ -467,18 +467,34 @@ body {
 /* Custom Animations */
 @keyframes glow {
   0% {
-    @apply shadow-[0_0_5px_rgba(255,255,255,0.1)];
+    @apply shadow-[0_0_10px_rgba(255,255,255,0.2)];
   }
   50% {
-    @apply shadow-[0_0_15px_rgba(255,255,255,0.2)];
+    @apply shadow-[0_0_25px_rgba(255,255,255,0.3)];
   }
   100% {
-    @apply shadow-[0_0_5px_rgba(255,255,255,0.1)];
+    @apply shadow-[0_0_10px_rgba(255,255,255,0.2)];
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }
 
 .glow-effect {
   animation: glow 3s infinite;
+}
+
+.float-effect {
+  animation: float 4s ease-in-out infinite;
 }
 
 /* RTL Support */
