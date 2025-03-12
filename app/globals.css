@@ -335,24 +335,22 @@
 
   /* Alert Card Styles */
   .alert-card {
-    @apply glass-morphism p-6 my-3 text-lg border-2 border-white/30 relative;
+    @apply glass-morphism p-6 my-4 text-lg border-2 border-white/40 relative
+    hover:border-white/60 hover:scale-[1.02] transition-all duration-300;
     &::before {
       content: "";
-      @apply absolute inset-0 -z-10 bg-black/60 backdrop-blur-md rounded-lg;
-      padding: 0.5rem;
-      margin: -0.5rem;
-    }
-    &:hover {
-      @apply border-white/50;
+      @apply absolute inset-0 -z-10 bg-black/70 backdrop-blur-lg rounded-lg;
+      padding: 0.75rem;
+      margin: -0.75rem;
     }
   }
 
   .alert-title {
-    @apply text-xl font-extrabold mb-2;
+    @apply text-2xl font-black mb-3 text-white/90;
   }
 
   .alert-content {
-    @apply text-lg text-white/90 font-bold;
+    @apply text-lg text-white/90 font-extrabold;
   }
 
   /* Common Form Styles */
