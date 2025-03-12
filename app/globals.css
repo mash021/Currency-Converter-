@@ -390,7 +390,14 @@
   .form-button {
     @apply w-full bg-accent/90 hover:bg-accent text-white text-lg font-black py-4 px-8 rounded-xl
     transition-all duration-300 shadow-lg shadow-black/50 hover:shadow-xl hover:shadow-black/60
-    hover:scale-[1.02] active:scale-98;
+    hover:scale-[1.02] active:scale-95 relative overflow-hidden;
+    &::before {
+      content: "";
+      @apply absolute inset-0 bg-white/20 transform scale-x-0 origin-left transition-transform duration-300;
+    }
+    &:hover::before {
+      @apply scale-x-100;
+    }
   }
 
   /* Status Badge Styles */
