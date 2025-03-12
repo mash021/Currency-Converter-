@@ -110,7 +110,7 @@
   .MuiButton-contained {
     @apply bg-black/80 hover:bg-black/90 transition-all duration-300 shadow-md shadow-black/40
     hover:shadow-lg hover:shadow-black/50 text-lg font-black rounded-xl
-    hover:scale-105 active:scale-95 !important;
+    hover:scale-105 active:scale-95 pulse-ring-effect !important;
   }
 
   .MuiMenuItem-root {
@@ -384,7 +384,7 @@
   .form-button {
     @apply w-full bg-accent/90 hover:bg-accent text-white text-lg font-black py-4 px-8 rounded-xl
     transition-all duration-300 shadow-lg shadow-black/50 hover:shadow-xl hover:shadow-black/60
-    hover:scale-[1.02] active:scale-95 relative overflow-hidden;
+    hover:scale-[1.02] active:scale-95 relative overflow-hidden pulse-ring-effect;
     &::before {
       content: "";
       @apply absolute inset-0 bg-white/20 transform scale-x-0 origin-left transition-transform duration-300;
