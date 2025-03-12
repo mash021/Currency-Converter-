@@ -15,7 +15,9 @@
 
   .card {
     @apply glass-morphism p-8 rounded-xl transition-all duration-300 
-    hover:shadow-2xl hover:shadow-black/60 hover:scale-[1.02];
+    hover:shadow-2xl hover:shadow-black/60 hover:scale-[1.02]
+    opacity-0;
+    animation: fade-in 0.5s ease-out forwards;
   }
 
   .input-dark {
@@ -319,13 +321,9 @@
 
   /* Chat Message Styles */
   .chat-message {
-    @apply glass-morphism p-5 my-3 text-lg relative hover:scale-[1.02] transition-all duration-300;
-    &::before {
-      content: "";
-      @apply absolute inset-0 -z-10 bg-black/60 backdrop-blur-md rounded-lg;
-      padding: 0.75rem;
-      margin: -0.75rem;
-    }
+    @apply glass-morphism p-5 my-3 text-lg relative hover:scale-[1.02] transition-all duration-300
+    opacity-0;
+    animation: slide-up 0.3s ease-out forwards;
   }
 
   .chat-message-user {
@@ -339,13 +337,9 @@
   /* Alert Card Styles */
   .alert-card {
     @apply glass-morphism p-6 my-4 text-lg border-2 border-white/40 relative
-    hover:border-white/60 hover:scale-[1.02] transition-all duration-300;
-    &::before {
-      content: "";
-      @apply absolute inset-0 -z-10 bg-black/70 backdrop-blur-lg rounded-lg;
-      padding: 0.75rem;
-      margin: -0.75rem;
-    }
+    hover:border-white/60 hover:scale-[1.02] transition-all duration-300
+    opacity-0;
+    animation: slide-up 0.5s ease-out forwards;
   }
 
   .alert-title {
