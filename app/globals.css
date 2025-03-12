@@ -109,17 +109,17 @@
   }
 
   .MuiMenuItem-root {
-    @apply text-white text-lg hover:bg-black/40 transition-colors duration-300;
-    color: white !important;
+    @apply text-white text-lg hover:bg-black/60 transition-all duration-300
+    hover:scale-[1.02] font-bold px-6 py-3;
   }
 
   .MuiSelect-icon {
-    @apply text-white;
+    @apply text-white scale-125;
   }
 
   /* Dark Theme Overrides */
   .MuiPaper-root {
-    @apply bg-black/90 backdrop-blur-md text-white shadow-lg shadow-black/40;
+    @apply bg-black/95 backdrop-blur-lg text-white shadow-xl shadow-black/50;
   }
 
   .MuiAutocomplete-paper {
