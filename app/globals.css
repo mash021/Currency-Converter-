@@ -4,7 +4,8 @@
 
 @layer components {
   .bg-gradient-dark {
-    @apply bg-gradient-to-br from-primary/95 via-secondary/95 to-accent/95 bg-black;
+    @apply bg-gradient-to-br from-primary/95 via-secondary/95 to-accent/95 bg-black
+    hover:from-primary hover:via-secondary hover:to-accent transition-all duration-700;
   }
 
   .glass-morphism {
