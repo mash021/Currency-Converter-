@@ -48,7 +48,7 @@
   }
 
   .loading-pulse {
-    @apply animate-pulse bg-black/30;
+    @apply animate-pulse bg-black/30 loading-shimmer;
   }
 
   /* Material-UI Dark Theme Overrides */
@@ -498,6 +498,26 @@ body {
 
 .float-effect {
   animation: float 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.08) 37%,
+    rgba(255, 255, 255, 0.03) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }
 
 /* RTL Support */
