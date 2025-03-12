@@ -2,15 +2,490 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+@layer components {
+  .bg-gradient-dark {
+    @apply bg-gradient-to-br from-primary/95 via-secondary/95 to-accent/95 bg-black;
+  }
+
+  .glass-morphism {
+    @apply bg-black/60 backdrop-blur-md border border-white/10 rounded-lg shadow-lg shadow-black/40;
+  }
+
+  .card {
+    @apply glass-morphism p-8 rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-black/50;
+  }
+
+  .input-dark {
+    @apply bg-black/50 text-white text-lg border-white/20 rounded-lg transition-all duration-300
+    focus:border-white/30 focus:ring-1 focus:ring-white/10 placeholder-white/40;
+  }
+
+  .table-header {
+    @apply text-white text-xl font-extrabold bg-black/70 backdrop-blur-sm sticky top-0 z-10 p-5 relative;
+    &::before {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-black/70 backdrop-blur-md;
+      padding: 0.5rem;
+      margin: -0.5rem;
+    }
+  }
+
+  .table-row {
+    @apply hover:bg-black/40 transition-colors duration-300;
+  }
+
+  .table-cell {
+    @apply text-white text-lg p-5 font-bold relative;
+    &::before {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-black/40 backdrop-blur-sm rounded-lg;
+      padding: 0.5rem;
+      margin: -0.5rem;
+    }
+  }
+
+  .loading-pulse {
+    @apply animate-pulse bg-black/30;
+  }
+
+  /* Material-UI Dark Theme Overrides */
+  .MuiInputBase-root {
+    @apply text-white text-lg border-2 border-white/30 transition-all duration-300 bg-black/50 backdrop-blur-sm rounded-lg;
+  }
+
+  .MuiInputBase-input {
+    @apply text-white !important;
+    color: white !important;
+  }
+
+  .MuiInputBase-input::placeholder {
+    @apply text-white/70 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .MuiSelect-select {
+    @apply text-white !important;
+    color: white !important;
+  }
+
+  .MuiSelect-select::placeholder {
+    @apply text-white/70 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .MuiInputLabel-root {
+    @apply text-white text-lg !important;
+    color: white !important;
+  }
+
+  .MuiInputLabel-root.Mui-focused {
+    @apply text-white !important;
+    color: white !important;
+  }
+
+  .MuiOutlinedInput-root {
+    @apply text-white border-2 border-white/30 !important;
+    &:hover {
+      @apply border-white/50 !important;
+    }
+    &.Mui-focused {
+      @apply border-white/70 !important;
+    }
+  }
+
+  .MuiOutlinedInput-input {
+    @apply text-white !important;
+    color: white !important;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    @apply border-2 border-white/30 !important;
+  }
+
+  .MuiButton-contained {
+    @apply bg-black/80 hover:bg-black/90 transition-all duration-300 shadow-md shadow-black/40
+    hover:shadow-lg hover:shadow-black/50 text-lg font-bold !important;
+  }
+
+  .MuiMenuItem-root {
+    @apply text-white text-lg hover:bg-black/40 transition-colors duration-300;
+    color: white !important;
+  }
+
+  .MuiSelect-icon {
+    @apply text-white;
+  }
+
+  /* Dark Theme Overrides */
+  .MuiPaper-root {
+    @apply bg-black/90 backdrop-blur-md text-white shadow-lg shadow-black/40;
+  }
+
+  .MuiAutocomplete-paper {
+    @apply bg-black/90 backdrop-blur-md;
+  }
+
+  .MuiAutocomplete-option {
+    @apply text-white text-lg;
+  }
+
+  .MuiAutocomplete-option[aria-selected="true"] {
+    @apply bg-black/60;
+  }
+
+  .MuiAutocomplete-option:hover {
+    @apply bg-black/50;
+  }
+
+  /* Search Input Styles */
+  .search-input {
+    @apply bg-black/50 backdrop-blur-sm text-white text-lg border-white/20 rounded-lg 
+    focus:border-white/30 focus:ring-1 focus:ring-white/10;
+  }
+
+  .search-dropdown {
+    @apply bg-black/90 backdrop-blur-md text-white border border-white/10 
+    rounded-lg shadow-lg shadow-black/40;
+  }
+
+  .search-option {
+    @apply hover:bg-black/50 transition-colors duration-300 px-5 py-3 cursor-pointer text-lg font-bold;
+  }
+
+  .search-option-selected {
+    @apply bg-black/60;
+  }
+
+  /* Typography Styles */
+  h1,
+  h2,
+  h3,
+  p,
+  label,
+  .MuiTypography-root,
+  .chat-message,
+  .alert-content {
+    @apply relative font-bold;
+    &::before {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-black/40 backdrop-blur-sm rounded-lg;
+      padding: 0.5rem;
+      margin: -0.5rem;
+    }
+  }
+
+  h1 {
+    @apply text-4xl font-bold mb-6 text-white;
+  }
+
+  h2 {
+    @apply text-3xl font-bold mb-5 text-white;
+  }
+
+  h3 {
+    @apply text-2xl font-bold mb-4 text-white;
+  }
+
+  p {
+    @apply text-lg text-white/90 leading-relaxed;
+  }
+
+  label {
+    @apply text-lg font-medium text-white/90 relative;
+    &::before {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-black/50 backdrop-blur-sm rounded;
+      padding: 0.25rem;
+      margin: -0.25rem;
+    }
+  }
+
+  /* Currency Converter Specific Styles */
+  .currency-input {
+    @apply text-white border-2 border-white/30 !important;
+    color: white !important;
+    &:hover {
+      @apply border-white/50 !important;
+    }
+    &:focus {
+      @apply border-white/70 !important;
+    }
+  }
+
+  .currency-input::placeholder {
+    @apply text-white/70 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .currency-select {
+    @apply text-white border-2 border-white/30 !important;
+    color: white !important;
+    &:hover {
+      @apply border-white/50 !important;
+    }
+    &:focus {
+      @apply border-white/70 !important;
+    }
+  }
+
+  .currency-select::placeholder {
+    @apply text-white/70 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .currency-label {
+    @apply text-white !important relative;
+    &::before {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-black/50 backdrop-blur-sm rounded;
+      padding: 0.25rem;
+      margin: -0.25rem;
+    }
+  }
+
+  /* Additional Overrides for Select Options */
+  .MuiSelect-root {
+    @apply text-white !important;
+    color: white !important;
+  }
+
+  .MuiSelect-outlined {
+    @apply text-white !important;
+    color: white !important;
+  }
+
+  /* Alert and Chat Styles */
+  .alert-input,
+  .chat-input {
+    @apply text-white border-2 border-white/30 !important;
+    color: white !important;
+    &:hover {
+      @apply border-white/50 !important;
+    }
+    &:focus {
+      @apply border-white/70 !important;
+    }
+  }
+
+  .alert-input::placeholder,
+  .chat-input::placeholder {
+    @apply text-white/70 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .alert-select,
+  .chat-select {
+    @apply text-white border-2 border-white/30 !important;
+    color: white !important;
+    &:hover {
+      @apply border-white/50 !important;
+    }
+    &:focus {
+      @apply border-white/70 !important;
+    }
+  }
+
+  .alert-label,
+  .chat-label {
+    @apply text-lg font-bold text-white/90 relative;
+    &::before {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-black/50 backdrop-blur-sm rounded;
+      padding: 0.25rem;
+      margin: -0.25rem;
+    }
+  }
+
+  /* Typography Updates */
+  .MuiTypography-root {
+    @apply text-lg !important;
+  }
+
+  .MuiInputBase-root {
+    @apply text-lg !important;
+  }
+
+  .MuiButton-root {
+    @apply text-lg !important;
+  }
+
+  .MuiMenuItem-root {
+    @apply text-lg !important;
+  }
+
+  /* Chat Message Styles */
+  .chat-message {
+    @apply glass-morphism p-4 my-2 text-lg relative;
+    &::before {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-black/60 backdrop-blur-md rounded-lg;
+      padding: 0.5rem;
+      margin: -0.5rem;
+    }
+  }
+
+  .chat-message-user {
+    @apply bg-accent/30;
+  }
+
+  .chat-message-bot {
+    @apply bg-primary/30;
+  }
+
+  /* Alert Card Styles */
+  .alert-card {
+    @apply glass-morphism p-6 my-3 text-lg border-2 border-white/30 relative;
+    &::before {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-black/60 backdrop-blur-md rounded-lg;
+      padding: 0.5rem;
+      margin: -0.5rem;
+    }
+    &:hover {
+      @apply border-white/50;
+    }
+  }
+
+  .alert-title {
+    @apply text-xl font-extrabold mb-2;
+  }
+
+  .alert-content {
+    @apply text-lg text-white/90 font-bold;
+  }
+
+  /* Common Form Styles */
+  .form-container {
+    @apply glass-morphism p-6 space-y-4;
+  }
+
+  .form-group {
+    @apply space-y-2;
+  }
+
+  .form-label {
+    @apply text-lg font-bold text-white/90 relative;
+    &::before {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-black/50 backdrop-blur-sm rounded;
+      padding: 0.25rem;
+      margin: -0.25rem;
+    }
+  }
+
+  .form-input {
+    @apply w-full bg-black/50 text-white text-lg border-2 border-white/30 rounded-lg 
+    transition-all duration-300 focus:border-white/70 focus:ring-1 focus:ring-white/30;
+  }
+
+  .form-select {
+    @apply w-full bg-black/50 text-white text-lg border-2 border-white/30 rounded-lg 
+    transition-all duration-300 focus:border-white/70 focus:ring-1 focus:ring-white/30;
+  }
+
+  .form-button {
+    @apply w-full bg-accent/80 hover:bg-accent/90 text-white text-lg font-bold py-3 px-6 rounded-lg
+    transition-all duration-300 shadow-md shadow-black/40 hover:shadow-lg hover:shadow-black/50;
+  }
+
+  /* Status Badge Styles */
+  .status-badge {
+    @apply px-4 py-1.5 rounded-full text-lg font-black tracking-wider shadow-lg relative;
+    &::before {
+      content: "";
+      @apply absolute inset-0 -z-10 bg-black/60 backdrop-blur-md rounded-full;
+      padding: 0.25rem;
+      margin: -0.25rem;
+    }
+  }
+
+  .profit-badge {
+    @apply status-badge bg-success/40 text-success-light border-2 border-success/60;
+    text-shadow: 0 0 15px rgba(25, 100, 66, 0.9);
+    box-shadow: 0 0 20px rgba(25, 100, 66, 0.4);
+  }
+
+  .loss-badge {
+    @apply status-badge bg-red-900/30 text-red-300 border-2 border-red-700/50;
+    text-shadow: 0 0 15px rgba(220, 38, 38, 0.8);
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.3);
+  }
+
+  .neutral-badge {
+    @apply status-badge bg-gray-800/30 text-gray-200 border-2 border-gray-600/50;
+    text-shadow: 0 0 15px rgba(156, 163, 175, 0.8);
+    box-shadow: 0 0 15px rgba(156, 163, 175, 0.3);
+  }
+
+  /* Enhanced badge styles */
+  .profit-badge,
+  .loss-badge,
+  .neutral-badge {
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+  }
+
+  .profit-badge:hover {
+    @apply bg-success/50 border-success/70;
+    text-shadow: 0 0 20px rgba(25, 100, 66, 1);
+    box-shadow: 0 0 25px rgba(25, 100, 66, 0.5);
+    transform: scale(1.05);
+  }
+
+  .loss-badge:hover {
+    @apply bg-red-900/40 border-red-700/60;
+    transform: scale(1.05);
+  }
+
+  .neutral-badge:hover {
+    @apply bg-gray-800/40 border-gray-600/60;
+    transform: scale(1.05);
+  }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
-  min-height: 100vh;
+  @apply bg-gradient-dark text-white min-h-screen font-['Vazir'] antialiased bg-black text-base;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black/30;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/20 rounded-full hover:bg-white/30 transition-colors duration-300;
+}
+
+/* Custom Animations */
+@keyframes glow {
+  0% {
+    @apply shadow-[0_0_5px_rgba(255,255,255,0.1)];
+  }
+  50% {
+    @apply shadow-[0_0_15px_rgba(255,255,255,0.2)];
+  }
+  100% {
+    @apply shadow-[0_0_5px_rgba(255,255,255,0.1)];
+  }
+}
+
+.glow-effect {
+  animation: glow 3s infinite;
+}
+
+/* RTL Support */
+[dir="rtl"] .MuiInputBase-input {
+  text-align: right;
+}
+
+[dir="rtl"] .MuiAutocomplete-input {
+  text-align: right;
 }
 
 /* RTL support for Material-UI components */
@@ -18,14 +493,27 @@ body {
 .MuiTypography-root,
 .MuiButton-root {
   text-align: right !important;
+  font-size: 1.125rem !important;
 }
 
 .MuiInputLabel-root {
   right: 1.75rem !important;
   left: auto !important;
   transform-origin: right !important;
+  font-size: 1.125rem !important;
 }
 
 .MuiOutlinedInput-notchedOutline {
   text-align: right !important;
+}
+
+/* Material-UI Text Styles */
+.MuiInputBase-root,
+.MuiInputBase-input,
+.MuiSelect-select,
+.MuiInputLabel-root,
+.MuiMenuItem-root,
+.MuiButton-root,
+.MuiTypography-root {
+  @apply font-bold !important;
 }

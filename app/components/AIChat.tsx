@@ -1,125 +1,114 @@
-import React, { useState } from 'react';
-import { Box, TextField, Button, Paper, Typography, Avatar, CircularProgress } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
-import PersonIcon from '@mui/icons-material/Person';
-import { getChatResponse } from '../services/ai';
+'use client';
 
-interface Message {
-  text: string;
-  sender: 'user' | 'bot';
-  timestamp: Date;
-}
+import React, { useState } from 'react';
+import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 export default function AIChat() {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!message.trim()) return;
 
-    const userMessage: Message = {
-      text: input,
-      sender: 'user',
-      timestamp: new Date(),
-    };
-
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
-    setIsLoading(true);
-
+    setLoading(true);
     try {
-      const response = await getChatResponse(input);
-      const botMessage: Message = {
-        text: response,
-        sender: 'bot',
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, botMessage]);
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to get response');
+      }
+
+      const data = await res.json();
+      setResponse(data.response);
     } catch (error) {
-      console.error('Error in chat:', error);
-      const errorMessage: Message = {
-        text: 'متاسفانه در ارتباط با هوش مصنوعی مشکلی پیش آمده است.',
-        sender: 'bot',
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, errorMessage]);
+      console.error('Error:', error);
+      setResponse('متأسفانه در دریافت پاسخ مشکلی پیش آمد. لطفاً دوباره تلاش کنید.');
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 2, height: '500px', display: 'flex', flexDirection: 'column' }}>
-      <Typography variant="h6" gutterBottom>
+    <div className="space-y-4">
+      <Typography 
+        variant="h5" 
+        sx={{
+          color: '#0078ff',
+          fontFamily: 'Vazir',
+          fontWeight: 'bold',
+          textAlign: 'center',
+          marginBottom: 3
+        }}
+      >
         دستیار هوشمند ارزی
       </Typography>
-      
-      <Box sx={{ flexGrow: 1, overflow: 'auto', mb: 2 }}>
-        {messages.map((message, index) => (
-          <Box
-            key={index}
-            sx={{
-              display: 'flex',
-              justifyContent: message.sender === 'user' ? 'flex-end' : 'flex-start',
-              mb: 2,
-            }}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', maxWidth: '70%' }}>
-              {message.sender === 'bot' && (
-                <Avatar sx={{ bgcolor: 'primary.main', mr: 1 }}>
-                  <SmartToyIcon />
-                </Avatar>
-              )}
-              <Paper
-                elevation={1}
-                sx={{
-                  p: 1,
-                  bgcolor: message.sender === 'user' ? 'primary.main' : 'grey.100',
-                  color: message.sender === 'user' ? 'white' : 'text.primary',
-                }}
-              >
-                <Typography variant="body1">{message.text}</Typography>
-                <Typography variant="caption" sx={{ opacity: 0.7 }}>
-                  {message.timestamp.toLocaleTimeString()}
-                </Typography>
-              </Paper>
-              {message.sender === 'user' && (
-                <Avatar sx={{ bgcolor: 'secondary.main', ml: 1 }}>
-                  <PersonIcon />
-                </Avatar>
-              )}
-            </Box>
-          </Box>
-        ))}
-        {isLoading && (
-          <Box sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
-            <CircularProgress size={20} />
-          </Box>
-        )}
-      </Box>
 
-      <Box sx={{ display: 'flex', gap: 1 }}>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <TextField
           fullWidth
+          multiline
+          rows={3}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="سؤال خود را بپرسید..."
           variant="outlined"
-          placeholder="پیام خود را بنویسید..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-          disabled={isLoading}
+          disabled={loading}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              color: '#ffffff',
+              borderColor: '#0078ff',
+              '&:hover': {
+                borderColor: '#3399ff',
+              },
+              '&.Mui-focused': {
+                borderColor: '#66b3ff',
+              },
+            },
+          }}
         />
+
         <Button
+          type="submit"
           variant="contained"
-          color="primary"
-          onClick={handleSend}
-          endIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : <SendIcon />}
-          disabled={isLoading}
+          disabled={loading || !message.trim()}
+          endIcon={loading ? <CircularProgress size={20} /> : <SendIcon />}
+          sx={{
+            backgroundColor: '#0078ff',
+            color: '#fff',
+            '&:hover': {
+              backgroundColor: '#0056b3',
+            },
+            fontFamily: 'Vazir',
+            fontWeight: 'bold',
+          }}
         >
           ارسال
         </Button>
-      </Box>
-    </Paper>
+      </form>
+
+      {response && (
+        <div className="mt-4 p-4 bg-dark-200 rounded-lg border-2 border-blue-500">
+          <Typography 
+            variant="body1" 
+            sx={{
+              color: '#ffffff',
+              fontFamily: 'Vazir',
+              whiteSpace: 'pre-wrap',
+            }}
+          >
+            {response}
+          </Typography>
+        </div>
+      )}
+    </div>
   );
 } 

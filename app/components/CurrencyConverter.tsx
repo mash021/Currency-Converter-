@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { TextField, Button, MenuItem, Box, Typography } from '@mui/material';
+import { TextField, Button, MenuItem, Box, Typography, IconButton } from '@mui/material';
 import { ConversionResult } from '../../types/currency';
 import { currencyInfo } from '../../utils/currencyData';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 
 interface Props {
   rates: { [key: string]: number };
@@ -18,26 +19,39 @@ export default function CurrencyConverter({ rates, baseCurrency }: Props) {
 
   const currencies = [baseCurrency, ...Object.keys(rates)];
 
-  const handleConvert = () => {
-    const numAmount = parseFloat(amount);
+  const handleSwap = () => {
+    setFromCurrency(toCurrency);
+    setToCurrency(fromCurrency);
+    if (result) {
+      setAmount(result.result.toFixed(2));
+      handleConvert(result.result.toFixed(2), toCurrency, fromCurrency);
+    }
+  };
+
+  const handleConvert = (
+    currentAmount = amount,
+    currentFrom = fromCurrency,
+    currentTo = toCurrency
+  ) => {
+    const numAmount = parseFloat(currentAmount);
     if (isNaN(numAmount)) return;
 
     let rate: number;
-    if (fromCurrency === baseCurrency) {
-      rate = rates[toCurrency];
-    } else if (toCurrency === baseCurrency) {
-      rate = 1 / rates[fromCurrency];
+    if (currentFrom === baseCurrency) {
+      rate = rates[currentTo];
+    } else if (currentTo === baseCurrency) {
+      rate = 1 / rates[currentFrom];
     } else {
-      const fromRate = rates[fromCurrency];
-      const toRate = rates[toCurrency];
+      const fromRate = rates[currentFrom];
+      const toRate = rates[currentTo];
       rate = toRate / fromRate;
     }
 
     const convertedAmount = numAmount * rate;
     setResult({
       amount: numAmount,
-      from: fromCurrency,
-      to: toCurrency,
+      from: currentFrom,
+      to: currentTo,
       result: convertedAmount,
       rate
     });
@@ -47,15 +61,13 @@ export default function CurrencyConverter({ rates, baseCurrency }: Props) {
     const info = currencyInfo[currency] || {
       code: currency,
       name: currency,
-      symbol: currency,
-      flag: '🏳️'
+      symbol: currency
     };
     return (
-      <MenuItem key={currency} value={currency}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <span>{info.flag}</span>
+      <MenuItem key={currency} value={currency} className="text-light hover:bg-dark-200">
+        <Box className="flex items-center gap-2">
           <span>{currency}</span>
-          <span style={{ color: 'text.secondary', marginRight: 'auto' }}>
+          <span className="text-accent/70 mr-auto">
             {info.name}
           </span>
         </Box>
@@ -64,8 +76,8 @@ export default function CurrencyConverter({ rates, baseCurrency }: Props) {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, mx: 'auto', mt: 4, p: 2 }}>
-      <Typography variant="h5" gutterBottom>
+    <Box className="card">
+      <Typography variant="h5" gutterBottom className="text-light">
         تبدیل ارز
       </Typography>
       <TextField
@@ -74,43 +86,53 @@ export default function CurrencyConverter({ rates, baseCurrency }: Props) {
         type="number"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
-        sx={{ mb: 2 }}
+        className="input-dark mb-4"
       />
-      <TextField
-        fullWidth
-        select
-        label="از ارز"
-        value={fromCurrency}
-        onChange={(e) => setFromCurrency(e.target.value)}
-        sx={{ mb: 2 }}
-      >
-        {currencies.map(renderCurrencyOption)}
-      </TextField>
-      <TextField
-        fullWidth
-        select
-        label="به ارز"
-        value={toCurrency}
-        onChange={(e) => setToCurrency(e.target.value)}
-        sx={{ mb: 2 }}
-      >
-        {currencies.map(renderCurrencyOption)}
-      </TextField>
+      <div className="flex items-center gap-4 mb-4">
+        <TextField
+          fullWidth
+          select
+          label="از ارز"
+          value={fromCurrency}
+          onChange={(e) => setFromCurrency(e.target.value)}
+          className="input-dark"
+        >
+          {currencies.map(renderCurrencyOption)}
+        </TextField>
+        <IconButton 
+          onClick={handleSwap}
+          className="text-accent hover:text-accent/80"
+          disabled={!toCurrency}
+        >
+          <SwapHorizIcon />
+        </IconButton>
+        <TextField
+          fullWidth
+          select
+          label="به ارز"
+          value={toCurrency}
+          onChange={(e) => setToCurrency(e.target.value)}
+          className="input-dark"
+        >
+          {currencies.map(renderCurrencyOption)}
+        </TextField>
+      </div>
       <Button
         fullWidth
         variant="contained"
-        onClick={handleConvert}
+        onClick={() => handleConvert()}
         disabled={!amount || !fromCurrency || !toCurrency}
+        className="bg-accent hover:bg-accent/90"
       >
         تبدیل
       </Button>
 
       {result && (
-        <Box sx={{ mt: 2, p: 2, bgcolor: 'background.paper', borderRadius: 1 }}>
-          <Typography variant="body1">
+        <Box className="mt-4 p-4 glass-morphism">
+          <Typography variant="body1" className="text-light">
             {result.amount} {currencyInfo[result.from]?.symbol || result.from} = {result.result.toFixed(2)} {currencyInfo[result.to]?.symbol || result.to}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" className="text-accent/70">
             نرخ تبدیل: {result.rate.toFixed(4)}
           </Typography>
         </Box>
