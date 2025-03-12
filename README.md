@@ -1,3 +1,5 @@
+![Image 12-03-2025 at 19 30](https://github.com/user-attachments/assets/d1ad198c-98d0-4c98-9be2-4feaa8df66af)
+
 # Smart Currency Converter
 
 A sophisticated currency converter application with AI capabilities, built using Next.js and TypeScript. This application provides real-time currency conversion, AI-powered assistance, and price alerts.
@@ -21,6 +23,7 @@ A sophisticated currency converter application with AI capabilities, built using
 - Material-UI
 - OpenAI API
 - ExchangeRate API
+
 
 ## Getting Started
 
