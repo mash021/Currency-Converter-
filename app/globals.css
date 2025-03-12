@@ -12,7 +12,8 @@
   }
 
   .card {
-    @apply glass-morphism p-8 rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-black/50;
+    @apply glass-morphism p-8 rounded-xl transition-all duration-300 
+    hover:shadow-2xl hover:shadow-black/60 hover:scale-[1.02];
   }
 
   .input-dark {
