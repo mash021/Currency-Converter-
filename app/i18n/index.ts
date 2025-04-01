@@ -1,18 +1,1 @@
-import i18n from 'i18next';
-
-i18n.init({
-  resources: {
-    en: {
-      translation: {
-        welcome: 'Welcome to Currency Converter'
-      }
-    },
-    fa: {
-      translation: {
-        welcome: 'به مبدل ارز خوش آمدید'
-      }
-    }
-  },
-  lng: 'en',
-  fallbackLng: 'en',
-});
+import i18n from 'i18next'; import { TranslationKeys } from './types'; const userLanguage = typeof window !== 'undefined' ? window.navigator.language.split('-')[0] : 'en'; i18n.init({ resources: { en: { translation: { welcome: 'Welcome to Currency Converter', convert: 'Convert', from: 'From', to: 'To', amount: 'Amount', result: 'Result', error: 'Error', loading: 'Loading...' } }, fa: { translation: { welcome: 'به مبدل ارز خوش آمدید', convert: 'تبدیل', from: 'از', to: 'به', amount: 'مقدار', result: 'نتیجه', error: 'خطا', loading: 'در حال بارگذاری...' } } }, lng: userLanguage, fallbackLng: 'en', });
